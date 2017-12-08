@@ -1,0 +1,39 @@
+#include <stdio.h>
+#include <iostream>
+#include <io.h>
+char key[20];
+char title[15];
+int keyamo = 0;
+int i = 1;
+void Search() {
+	_finddata_t contents;
+	long handle;
+	int result = 1;
+	handle = _findfirst("c:\\Users\\고태호\\Desktop\\dataset-2nd\\*.*", &contents);
+	FILE *fp;
+	printf("Please Enter your keyword: ");
+	scanf("%s", key);
+	
+	while (result != -1) {
+		if ((fp = fopen("contents.name.txt", "r"))) {
+			printf("Error!\n");
+			exit(1);
+		}
+		fgets("contents.name.txt", 100, fp);
+		if (strstr("contents.name.txt", key) != NULL) {
+			printf("%d. %s\n", i, contents.name);
+			i++;
+			result = _findnext(handle, &contents);
+			fclose(fp);
+		}
+		printf("\n\nTotal %d results were found.\n\n): ", i);
+	}
+}
+
+int main()
+{
+	printf("Results will be arranged by the amount of it contents!\n\n");
+	Search();
+	
+	system("pause");
+}
